@@ -162,5 +162,3 @@ pub extern "C" fn free_keypair(ptr: *mut Keypair) {
         Box::from_raw(ptr);
     }
 }
-
-//https://stackoverflow.com/questions/66775719/how-should-i-free-a-c-sharp-byte-allocated-in-rust

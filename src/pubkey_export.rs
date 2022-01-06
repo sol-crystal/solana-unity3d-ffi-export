@@ -118,7 +118,7 @@ extern "C" fn pubkey_find_program_address(seeds:  *const Seeds<u8>, len: size_t,
     let program_address = Pubkey::find_program_address(vec_of_seed.as_slice(),program_id);
 
     ProgramAddress {
-        pubkey: Box::into_raw(Box::new(program_address.0)), //CString::new(program_address.0.to_string()).unwrap().into_raw(),
+        pubkey: Box::into_raw(Box::new(program_address.0)),
         bump_seed: program_address.1
     }
 }
@@ -143,11 +143,11 @@ extern "C" fn pubkey_try_find_program_address(seeds: *const Seeds<u8>, len: size
     let program_address_result = Pubkey::try_find_program_address(vec_of_seed.as_slice(),program_id);
     match program_address_result {
         None => ProgramAddress {
-            pubkey: null_mut(), //CString::new(program_address.0.to_string()).unwrap().into_raw(),
+            pubkey: null_mut(),
             bump_seed: 0
         },
         Some(program_address) => ProgramAddress {
-            pubkey: Box::into_raw(Box::new(program_address.0)), //CString::new(program_address.0.to_string()).unwrap().into_raw(),
+            pubkey: Box::into_raw(Box::new(program_address.0)),
             bump_seed: program_address.1
         }
     }
@@ -189,13 +189,6 @@ extern "C" fn pubkey_to_bytes(ptr : *mut Pubkey) -> VecRawParts {
     };
 
     to_raw_parts(pubkey.to_bytes().to_vec())
-
-    // let mut mut_bytes = pubkey.to_bytes().try_to_vec().unwrap().into_boxed_slice();
-    // let result_data = mut_bytes.as_mut_ptr();
-    // unsafe {
-    //     *bytes = result_data;
-    // }
-    // std::mem::forget(mut_bytes);
 }
 
 #[no_mangle]
